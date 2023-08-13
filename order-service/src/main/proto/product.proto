@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package productservice;
+
+message NewProductRecord {
+  string name = 1;
+  string description = 2;
+  int32 price = 3;
+  bool available = 4;
+  int32 availableProductCount = 5;
+}
+
+message ProductRecord {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  int32 price = 4;
+  bool available = 5;
+  int32 availableProductCount = 6;
+}
+
+service ProductService {
+  rpc AddProduct(NewProductRecord) returns (ProductRecord) {}
+  rpc UpdateProduct(ProductRecord) returns (ProductRecord) {}
+  rpc GetProductById(ProductId) returns (ProductRecord) {}
+  rpc GetAllProducts(Availability) returns (ProductRecords) {}
+}
+
+message ProductId {
+  int64 id = 1;
+}
+
+message Availability {
+  bool available = 1;
+}
+
+message ProductRecords {
+  repeated ProductRecord products = 1;
+}

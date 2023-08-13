@@ -1,0 +1,54 @@
+<div class="content-container">
+  <div class="row">
+    <div class="col-md-6" style="width:100%">
+      <div class="table-controls">
+        <h3>Deliveries</h3>
+        <p-dropdown
+          class="dropdown"
+          [options]="statuses"
+          [(ngModel)]="selectedStatus"
+          optionLabel="name"
+          appendTo="body"
+          (onChange)="onStatusDropdownChange($event)"
+        ></p-dropdown>
+
+      </div>
+      <p-table [value]="deliveries">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Delivery ID</th>
+            <th>Order Date</th>
+            <th>Customer ID</th>
+            <th>Delivery Address</th>
+            <th>Order Items</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template let-delivery pTemplate="body">
+          <tr>
+            <td>{{ delivery.id }}</td>
+            <td>{{ delivery.order.createdAt }}</td>
+            <td>{{ delivery.order.customerId }}</td>
+            <td>{{ delivery.order.deliveryAddress }}</td>
+            <td>
+              <div *ngFor="let item of delivery.order.orderItems">
+                {{ item.productDetails.name }} ({{ item.quantity }})
+              </div>
+            </td>
+            <td>
+              <p-tag [value]="getDisplayName(delivery.status)" [severity]="getSeverity(delivery.status)"></p-tag>
+            </td>
+            <td *ngIf="delivery.status=='PENDING'; else nopending">
+              <p-button (onClick)="updateStatus(delivery.id, 'DELIVERED')" label="Confirm" icon="pi pi-check" styleClass="p-button p-button-success" [ngStyle]="{'font-size': '12px', 'margin-right': '5px'}"></p-button>
+              <p-button (onClick)="updateStatus(delivery.id, 'CANCELED')" label="Cancel" icon="pi pi-times" styleClass="p-button p-button-danger" [ngStyle]="{'font-size': '12px'}"></p-button>
+            </td>
+            <ng-template #nopending>
+              <td></td>
+            </ng-template>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

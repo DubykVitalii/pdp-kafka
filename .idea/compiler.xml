@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <option name="mapstruct.defaultComponentModel" value="spring" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.28/a2ff5da8bcd8b1b26f36b806ced63213362c6dcc/lombok-1.18.28.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct-processor/1.5.5.Final/897f6f115930b936287bef552bf5fe28cc64717d/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok-mapstruct-binding/0.2.0/2f1cf9ced7b720ba4996c942b816669e63f0fa4f/lombok-mapstruct-binding-0.2.0.jar" />
+        </processorPath>
+        <module name="delivery-service.main" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dekivery-service" target="17" />
+      <module name="dekivery-service.main" target="17" />
+      <module name="dekivery-service.test" target="17" />
+      <module name="internet-shop" target="17" />
+      <module name="internet-shop.delivery-service" target="17" />
+      <module name="internet-shop.delivery-service.main" target="17" />
+      <module name="internet-shop.delivery-service.test" target="17" />
+      <module name="internet-shop.KafkaMessageService" target="17" />
+      <module name="internet-shop.KafkaMessageService.main" target="17" />
+      <module name="internet-shop.KafkaMessageService.test" target="17" />
+      <module name="internet-shop.main" target="17" />
+      <module name="internet-shop.OrderService" target="17" />
+      <module name="internet-shop.OrderService.main" target="17" />
+      <module name="internet-shop.OrderService.test" target="17" />
+      <module name="internet-shop.ProductService" target="17" />
+      <module name="internet-shop.ProductService.main" target="17" />
+      <module name="internet-shop.ProductService.test" target="17" />
+      <module name="internet-shop.test" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

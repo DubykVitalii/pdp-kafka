@@ -1,0 +1,114 @@
+<div class="content-container">
+  <div class="row">
+
+    <div class="col-md-6" style="width:65%">
+      <div class="table-controls">
+        <h3>Table Orders From Database</h3>
+        <span class="table-control-item">
+        <button (click)="showDialog()" class="p-button-secondary" icon="pi pi-plus" label="Add Order" pButton
+                type="button"></button>
+         </span>
+      </div>
+      <p-table [value]="orders">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Order ID</th>
+            <th>Customer ID</th>
+            <th>Delivery Address</th>
+            <th>Order Items</th>
+            <th>Status</th>
+            <th>Total sum</th>
+          </tr>
+        </ng-template>
+        <ng-template let-order pTemplate="body">
+          <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.customerId }}</td>
+            <td>{{ order.deliveryAddress }}</td>
+            <td>
+              <div *ngFor="let item of order.orderItems">
+                {{ item.productDetails.name }} ({{ item.quantity }})
+              </div>
+            </td>
+            <td>
+              <p-tag [value]="getDisplayName(order.status)" [severity]="getSeverity(order.status)"></p-tag>
+            </td>
+            <td>{{ getOrderTotal(order) }}$</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="col-md-6" style="width:35%">
+      <div style="text-align: center">
+        <h3>Kafka Messages (add order)</h3>
+      </div>
+      <div *ngFor="let message of kafkaMessages">
+        <div class="message-card">
+          <div>
+            <span class="message-label">Value:</span>
+            <span class="long-text">{{ message.value }}</span>
+          </div>
+          <div>
+            <span class="message-label">Timestamp: </span>
+            <span>{{ message.timestamp }}</span>
+          </div>
+          <div style="margin-top: 10px;">
+          <p-button class="p-button-custom" (onClick)="updateStatus(message.value, 'COMPLETE')" label="Complete Order" icon="pi pi-check" styleClass="p-button p-button-success"></p-button>
+          <p-button class="p-button-custom" (onClick)="updateStatus(message.value, 'CANCEL')" label="Cancel Order" icon="pi pi-times" styleClass="p-button p-button-danger"></p-button>
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p-dialog [(visible)]="displayDialog" [modal]="true" [style]="{width: '600px'}" header="Add Order">
+    <form [formGroup]="orderForm" style="padding: 20px;">
+      <div class="p-field">
+        <label for="customerId">Customer ID</label>
+        <input formControlName="customerId" id="customerId" pInputText placeholder="Enter Customer ID" style="width: 100%;"/>
+        <div *ngIf="orderForm.get('customerId')?.invalid && orderForm.get('customerId')?.touched" class="error-message">
+          Please enter a valid Customer ID
+        </div>
+      </div>
+      <div class="p-field">
+        <label for="deliveryAddress">Delivery Address</label>
+        <input formControlName="deliveryAddress" id="deliveryAddress" pInputText placeholder="Enter Delivery Address" style="width: 100%;" type="text"/>
+        <div *ngIf="orderForm.get('deliveryAddress')?.invalid && orderForm.get('deliveryAddress')?.touched" class="error-message">
+          Please enter a valid Delivery Address
+        </div>
+      </div>
+      <div class="p-field" formArrayName="orderItems">
+        <div *ngFor="let item of orderItems.controls; let i = index">
+          <div [formGroupName]="i" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div>
+              <label for="productId">Product ID</label>
+              <input formControlName="productId" id="productId" pInputText placeholder="Enter Product ID" style="width: 100%;"/>
+              <div *ngIf="item.get('productId')?.invalid && item.get('productId')?.touched" class="error-message">
+                Please enter a valid Product ID
+              </div>
+            </div>
+            <div>
+              <label for="quantity">Quantity</label>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <input formControlName="quantity" id="quantity" pInputText placeholder="Enter Quantity" style="width: 100%; margin-right:10px;" type="number"/>
+                <p-button (onClick)="removeOrderItem(i)" icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-text"></p-button>
+              </div>
+              <div *ngIf="item.get('quantity')?.invalid && item.get('quantity')?.touched" class="error-message">
+                Please enter a valid Quantity
+              </div>
+            </div>
+          </div>
+        </div>
+        <p-button (onClick)="addOrderItem()" label="Add Item" icon="pi pi-plus" styleClass="p-button-secondary p-button-sm p-button-outlined"></p-button>
+      </div>
+      <div style="text-align: center;">
+      <p-button (onClick)="addOrder()" label="Submit Order" icon="pi pi-check" styleClass="p-button p-button-secondary" [disabled]="orderForm.invalid" ></p-button>
+      </div>
+    </form>
+  </p-dialog>
+
+
+
+</div>

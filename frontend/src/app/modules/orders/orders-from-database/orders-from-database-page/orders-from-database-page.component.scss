@@ -1,0 +1,144 @@
+.row {
+  .col-md-4 {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.table-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  .table-control-item {
+    margin-right: 1em;
+    .p-float-label {
+      width: 200px;
+    }
+  }
+}
+
+.p-field {
+  margin-bottom: 15px;
+}
+
+.message-card {
+  border: 1px solid #ddd;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.row {
+  display: flex;
+}
+
+.col-md-6 {
+  width: 50%;
+}
+
+.message-card {
+  border: 1px solid #ddd;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  .message-label {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  .long-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: block;
+  }
+}
+
+.status-in_progress {
+  background: #FEEDAF;
+  color: #8a5340;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.status-completed {
+  background: #C8E6C9;
+  color: #256029;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.status-canceled {
+  background: #FFCDD2;
+  color: #c63737;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
+form {
+  padding: 20px;
+
+  .p-field {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+
+      &:focus {
+        border-color: #007ad9;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 122, 217, 0.5);
+      }
+
+      &.ng-invalid.ng-touched {
+        border-color: #f44336;
+        box-shadow: 0 0 5px rgba(244, 67, 54, 0.5);
+      }
+    }
+
+    .error-message {
+      margin-top: 5px;
+      color: #f44336;
+      font-size: 14px;
+    }
+  }
+
+  button {
+    background-color: #007ad9;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #005cb2;
+    }
+  }
+}
+
+.p-button-custom {
+  margin: 10px;
+}

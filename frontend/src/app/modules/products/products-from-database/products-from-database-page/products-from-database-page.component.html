@@ -1,0 +1,99 @@
+<div class="content-container">
+  <div class="row">
+
+    <div class="col-md-6" style="width:65%">
+      <div class="table-controls">
+        <h3>Table Products From Database</h3>
+        <button pButton (click)="showDialog()" class="p-button-secondary" icon="pi pi-plus" label="Add Product"></button>
+      </div>
+      <p-table [value]="products">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Availability</th>
+            <th>Count</th>
+          </tr>
+        </ng-template>
+        <ng-template let-product pTemplate="body">
+          <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.price }}$</td>
+            <td>
+        <span [ngClass]="{'badge-success': product.available, 'badge-danger': !product.available}" class="badge">
+          {{ product.available ? 'Available' : 'Not Available' }}
+        </span>
+            </td>
+            <td>{{ product.availableProductCount }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="col-md-6" style="width:35%">
+      <div style="text-align: center">
+        <h3>Kafka Messages(add product)</h3>
+      </div>
+      <div *ngFor="let message of kafkaMessages">
+        <div class="message-card">
+          <div>
+            <span class="message-label">Value:</span>
+            <span class="long-text">{{ message.value }}</span>
+          </div>
+          <div>
+            <span class="message-label">Timestamp: </span>
+            <span>{{ message.timestamp }}</span>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <p-dialog [(visible)]="displayDialog" [modal]="true" [style]="{width: '600px'}" header="Add Product">
+      <form [formGroup]="productForm" style="padding: 20px;">
+        <div class="p-field">
+          <label for="name">Product Name</label>
+          <input formControlName="name" id="name" pInputText placeholder="Enter Product Name" style="width: 100%;" type="text"/>
+          <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="error-message">
+            Please enter a valid Product Name
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="description">Description</label>
+          <input formControlName="description" id="description" pInputText placeholder="Enter Product Description" style="width: 100%;" type="text"/>
+          <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="error-message">
+            Please enter a valid Description
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="price">Price</label>
+          <input formControlName="price" id="price" pInputText placeholder="Enter Product Price" style="width: 100%;" type="number"/>
+          <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="error-message">
+            Please enter a valid Price
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="availableProductCount">Available Product Count</label>
+          <input formControlName="availableProductCount" id="availableProductCount" pInputText placeholder="Enter Available Product Count" style="width: 100%;" type="number"/>
+          <div *ngIf="productForm.get('availableProductCount')?.invalid && productForm.get('availableProductCount')?.touched" class="error-message">
+            Please enter a valid Available Product Count
+          </div>
+        </div>
+        <div class="p-field">
+          <p-checkbox [binary]="true" formControlName="available" id="available" inputId="binary" label="Available"></p-checkbox>
+        </div>
+        <div style="text-align: center;">
+          <p-button (onClick)="addProduct()" label="Submit Product" icon="pi pi-check" styleClass="p-button p-button-secondary" [disabled]="productForm.invalid" ></p-button>
+        </div>
+      </form>
+    </p-dialog>
+
+
+</div>
+
+</div>
