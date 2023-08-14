@@ -25,8 +25,6 @@ export class DeliveryPageComponent {
     this.getDeliveries()
   }
 
-
-
   getDeliveries(status?: string) {
     this.deliveryService.getAllDeliveries(status).subscribe(data => {
       this.deliveries = data;

@@ -53,10 +53,6 @@
             <span class="message-label">Timestamp: </span>
             <span>{{ message.timestamp }}</span>
           </div>
-          <div style="margin-top: 10px;">
-          <p-button class="p-button-custom" (onClick)="updateStatus(message.value, 'COMPLETE')" label="Complete Order" icon="pi pi-check" styleClass="p-button p-button-success"></p-button>
-          <p-button class="p-button-custom" (onClick)="updateStatus(message.value, 'CANCEL')" label="Cancel Order" icon="pi pi-times" styleClass="p-button p-button-danger"></p-button>
-        </div>
         </div>
       </div>
     </div>
@@ -108,7 +104,4 @@
       </div>
     </form>
   </p-dialog>
-
-
-
 </div>
